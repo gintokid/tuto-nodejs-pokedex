@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
 })
 
 // init de la base
-sequelize.initDb()
+//sequelize.initDb()
 
 
 
