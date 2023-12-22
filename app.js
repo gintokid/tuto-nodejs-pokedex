@@ -11,13 +11,15 @@ app
     .use(favicon(__dirname + '/favicon.ico'))
     .use(bodyParser.json())
 
-// init de la base
-sequelize.initDb()
-
 
 app.get('/', (req, res) => {
     res.json('Hello, Heroku ! 😊👌')
 })
+
+// init de la base
+sequelize.initDb()
+
+
 
 // Points de terminaisons
 require('./src/routes/findAllPokemons')(app)
