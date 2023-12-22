@@ -4,20 +4,39 @@ const UserModel = require('../models/users.js')
 let pokemons = require('./mock-pokemon.js')
 const bcrypt = require('bcrypt')
 
+
 // creation et config de l'instance sequelize 
-const sequelize = new Sequelize(
-    'pokedex',
-    'root',
-    '',
-    {
-        host: 'localhost',
-        dialect: 'mariadb',
-        dialectOptions: {
-            timezone: 'Etc/GMT-2'
-        },
-        logging: false
-    }
-)
+let sequelize
+if (process.env.NODE_ENV = 'production') {
+
+    sequelize = new Sequelize(
+        'y2ky4qav5i5wpzhy',
+        'y6mrm0b2x0uj1wce',
+        'oqdlqyml13s5hil9',
+        {
+            host: 'klbcedmmqp7w17ik.cbetxkdyhwsb.us-east-1.rds.amazonaws.com	',
+            dialect: 'mariadb',
+            dialectOptions: {
+                timezone: 'Etc/GMT-2'
+            },
+            logging: true
+        }
+    )
+} else {
+    sequelize = new Sequelize(
+        'pokedex',
+        'root',
+        '',
+        {
+            host: 'localhost',
+            dialect: 'mariadb',
+            dialectOptions: {
+                timezone: 'Etc/GMT-2'
+            },
+            logging: false
+        }
+    )
+}
 
 // creation model pokemon
 const Pokemon = PokemonModel(sequelize, DataTypes)
@@ -38,7 +57,7 @@ sequelize.authenticate()
 // syncronisation pour creer automatiquement les tables dans la BDD
 // force true pour supprimer tes tables si elles existent
 const initDb = () => {
-    sequelize.sync({ force: true })
+    sequelize.sync()
         .then(_ => {
             console.log('Base de donnée pokedex synchronisée')
 
