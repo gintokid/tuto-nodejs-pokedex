@@ -14,7 +14,7 @@ if (process.env.NODE_ENV = 'production') {
         'y6mrm0b2x0uj1wce',
         'oqdlqyml13s5hil9',
         {
-            host: 'klbcedmmqp7w17ik.cbetxkdyhwsb.us-east-1.rds.amazonaws.com	',
+            host: 'klbcedmmqp7w17ik.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
             dialect: 'mariadb',
             dialectOptions: {
                 timezone: 'Etc/GMT-2'
