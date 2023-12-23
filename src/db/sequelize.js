@@ -61,24 +61,37 @@ const initDb = () => {
         .then(_ => {
             console.log('Base de donnée pokedex synchronisée')
 
-            pokemons.map(pokemon => {
-
-                Pokemon.create({
-                    name: pokemon.name,
-                    hp: pokemon.hp,
-                    cp: pokemon.cp,
-                    picture: pokemon.picture,
-                    types: pokemon.types
-                }).then(bulbi => console.log(bulbi.toJSON()))
+            let countPokemon = 0
+            return Pokemon.findAndCountAll().then(({ nbRows, rows }) => {
+                let countPokemon = nbRows
             })
 
-            bcrypt.hash('kanto', 10)
-                .then(hash => {
-                    User.create({
-                        username: 'kanto',
-                        password: hash
-                    }).then(user => console.log(user.toJSON()))
+            if (countPokemon === 0) {
+                pokemons.map(pokemon => {
+
+                    Pokemon.create({
+                        name: pokemon.name,
+                        hp: pokemon.hp,
+                        cp: pokemon.cp,
+                        picture: pokemon.picture,
+                        types: pokemon.types
+                    }).then(bulbi => console.log(bulbi.toJSON()))
                 })
+            }
+
+            let countUser = 0
+            return User.findAndCountAll().then(({ nbRows, rows }) => {
+                let countUser = nbRows
+            })
+            if (countUser === 0) {
+                bcrypt.hash('kanto', 10)
+                    .then(hash => {
+                        User.create({
+                            username: 'kanto',
+                            password: hash
+                        }).then(user => console.log(user.toJSON()))
+                    })
+            }
         })
 
     console.log('Base de donnée initialisée !')
