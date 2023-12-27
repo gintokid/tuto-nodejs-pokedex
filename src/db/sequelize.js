@@ -1,8 +1,8 @@
-const { Sequelize, DataTypes } = require('sequelize')
-const PokemonModel = require('../models/pokemons.js')
-const UserModel = require('../models/users.js')
-let pokemons = require('./mock-pokemon.js')
-const bcrypt = require('bcrypt')
+import { Sequelize, DataTypes } from 'sequelize'
+import PokemonModel from '../models/pokemons.js'
+import UserModel from '../models/users.js'
+import { map } from './mock-pokemon.js'
+import { hash as _hash } from 'bcrypt'
 
 
 // creation et config de l'instance sequelize 
@@ -67,7 +67,7 @@ const initDb = () => {
             })
 
             if (countPokemon === 0) {
-                pokemons.map(pokemon => {
+                map(pokemon => {
 
                     Pokemon.create({
                         name: pokemon.name,
@@ -84,7 +84,7 @@ const initDb = () => {
                 let countUser = nbRows
             })
             if (countUser === 0) {
-                bcrypt.hash('kanto', 10)
+                _hash('kanto', 10)
                     .then(hash => {
                         User.create({
                             username: 'kanto',
@@ -97,4 +97,4 @@ const initDb = () => {
     console.log('Base de donnée initialisée !')
 }
 
-module.exports = { initDb, Pokemon, User }
+export default { initDb, Pokemon, User }

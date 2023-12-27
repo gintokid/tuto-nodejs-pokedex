@@ -1,8 +1,8 @@
-const { Pokemon } = require('../db/sequelize')
-const { Op } = require('sequelize')
-const auth = require("../auth/auth")
+import { Pokemon } from '../db/sequelize'
+import { Op } from 'sequelize'
+import auth from "../auth/auth"
 
-module.exports = (app) => {
+export default (app) => {
     app.get('/api/pokemons', auth, (req, res) => {
         if (req.query.name) {
             const name = req.query.name

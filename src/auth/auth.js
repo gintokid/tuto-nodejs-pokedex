@@ -1,7 +1,7 @@
-const jwt = require('jsonwebtoken');
-const privateKey = require('../auth/private_key')
+import { verify } from 'jsonwebtoken';
+import privateKey from '../auth/private_key';
 
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
 
     const authorizationHeader = req.headers.authorization;
 
@@ -11,7 +11,7 @@ module.exports = (req, res, next) => {
     }
 
     const token = authorizationHeader && authorizationHeader.split(' ')[1];
-    jwt.verify(token, privateKey, (error, decodedToken) => {
+    verify(token, privateKey, (error, decodedToken) => {
         console.log('DECODED', decodedToken);
         if (error) {
             const message = `L'utilisateur n'est pas autorisé a acceder à cette ressource`

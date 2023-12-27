@@ -1,8 +1,8 @@
-const { ValidationError } = require('sequelize')
-const { Pokemon } = require('../db/sequelize')
-const auth = require('../auth/auth')
+import { ValidationError } from 'sequelize'
+import { Pokemon } from '../db/sequelize'
+import auth from '../auth/auth'
 
-module.exports = (app) => {
+export default (app) => {
     app.put('/api/pokemons/:id', auth, (req, res) => {
         const id = req.params.id
         Pokemon.update(req.body, {

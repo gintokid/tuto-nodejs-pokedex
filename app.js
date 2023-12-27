@@ -1,8 +1,8 @@
-const express = require('express')
-const favicon = require('serve-favicon')
-const bodyParser = require('body-parser')
-const sequelize = require('./src/db/sequelize')
-const cors = require('cors')
+import express from 'express'
+import favicon from 'serve-favicon'
+import { json } from 'body-parser'
+import { initDb } from './src/db/sequelize'
+import cors from 'cors'
 
 // instantion express et ajouter les middleware
 const app = express()
@@ -10,7 +10,7 @@ const port = process.env.PORT || 3000
 
 app
     .use(favicon(__dirname + '/favicon.ico'))
-    .use(bodyParser.json())
+    .use(json())
     .use(cors())
 
 
@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 })
 
 // init de la base
-sequelize.initDb()
+initDb()
 
 
 

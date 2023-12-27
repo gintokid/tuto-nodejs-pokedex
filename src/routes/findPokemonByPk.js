@@ -1,7 +1,7 @@
-const auth = require('../auth/auth')
-const { Pokemon } = require('../db/sequelize')
+import auth from '../auth/auth'
+import { Pokemon } from '../db/sequelize'
 
-module.exports = (app) => {
+export default (app) => {
     app.get('/api/pokemons/:id', auth, (req, res) => {
         Pokemon.findByPk(req.params.id)
             .then(pokemon => {
