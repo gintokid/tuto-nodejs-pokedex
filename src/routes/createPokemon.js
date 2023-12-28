@@ -1,6 +1,6 @@
 import { ValidationError, UniqueConstraintError } from 'sequelize'
-import { Pokemon } from '../db/sequelize'
-import auth from '../auth/auth'
+import { Pokemon } from '../db/sequelize.js'
+import auth from "../auth/auth.js"
 
 export default (app) => {
     app.post('/api/pokemons', auth, (req, res) => {

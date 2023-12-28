@@ -1,7 +1,7 @@
-import { User } from '../db/sequelize'
-import { compare } from 'bcrypt'
-import { sign } from 'jsonwebtoken'
-import privateKey from '../auth/private_key'
+import { User } from '../db/sequelize.js'
+import bcrypt from 'bcrypt'
+import jsonwebtoken from 'jsonwebtoken'
+import privateKey from '../auth/private_key.js'
 
 export default (app) => {
     app.post('/api/login', (req, res) => {
@@ -13,14 +13,14 @@ export default (app) => {
                 return res.status(400).json({ message, data: user })
             }
 
-            compare(req.body.password, user.password).then(isPasswordValid => {
+            bcrypt.compare(req.body.password, user.password).then(isPasswordValid => {
                 if (!isPasswordValid) {
                     const message = `Password incorrect`
                     return res.status(400).json({ message, data: user })
                 }
 
                 //Jeton JWT
-                const token = sign(
+                const token = jsonwebtoken.sign(
                     { userId: user.id }
                     , privateKey
                     , { expiresIn: '24h' }

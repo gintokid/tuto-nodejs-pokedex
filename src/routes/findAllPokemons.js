@@ -1,6 +1,7 @@
-import { Pokemon } from '../db/sequelize'
+import { Pokemon } from '../db/sequelize.js'
 import { Op } from 'sequelize'
-import auth from "../auth/auth"
+import auth from "../auth/auth.js"
+
 
 export default (app) => {
     app.get('/api/pokemons', auth, (req, res) => {

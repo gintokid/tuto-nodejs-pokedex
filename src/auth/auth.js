@@ -1,5 +1,5 @@
-import { verify } from 'jsonwebtoken';
-import privateKey from '../auth/private_key';
+import jsonwebtoken from 'jsonwebtoken';
+import privateKey from '../auth/private_key.js';
 
 export default (req, res, next) => {
 
@@ -11,7 +11,7 @@ export default (req, res, next) => {
     }
 
     const token = authorizationHeader && authorizationHeader.split(' ')[1];
-    verify(token, privateKey, (error, decodedToken) => {
+    jsonwebtoken.verify(token, privateKey, (error, decodedToken) => {
         console.log('DECODED', decodedToken);
         if (error) {
             const message = `L'utilisateur n'est pas autorisé a acceder à cette ressource`

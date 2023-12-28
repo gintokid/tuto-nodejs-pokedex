@@ -1,16 +1,24 @@
 import express from 'express'
 import favicon from 'serve-favicon'
-import { json } from 'body-parser'
-import { initDb } from './src/db/sequelize'
+import bodyParser from 'body-parser'
+import { initDb } from './src/db/sequelize.js'
 import cors from 'cors'
+
+import findAllPokemons from './src/routes/findAllPokemons.js'
+import findPokemonByPk from './src/routes/findPokemonByPk.js'
+import createPokemon from './src/routes/createPokemon.js'
+import updatePokemon from './src/routes/updatePokemon.js'
+import deletePokemon from './src/routes/deletePokemon.js'
+import login from './src/routes/login.js'
+
 
 // instantion express et ajouter les middleware
 const app = express()
 const port = process.env.PORT || 3000
 
 app
-    .use(favicon(__dirname + '/favicon.ico'))
-    .use(json())
+    .use(favicon('./favicon.ico'))
+    .use(bodyParser.json())
     .use(cors())
 
 
@@ -24,13 +32,12 @@ initDb()
 
 
 // Points de terminaisons
-require('./src/routes/findAllPokemons')(app)
-require('./src/routes/findPokemonByPk')(app)
-require('./src/routes/createPokemon')(app)
-require('./src/routes/updatePokemon')(app)
-require('./src/routes/deletePokemon')(app)
-require('./src/routes/login')(app)
-
+findAllPokemons(app)
+findPokemonByPk(app)
+createPokemon(app)
+updatePokemon(app)
+deletePokemon(app)
+login(app)
 
 
 // on ajoute la gestion des erreurs 404

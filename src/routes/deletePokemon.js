@@ -1,5 +1,5 @@
-import auth from '../auth/auth'
-import { Pokemon } from '../db/sequelize'
+import auth from '../auth/auth.js'
+import { Pokemon } from '../db/sequelize.js'
 
 export default (app) => {
     app.delete('/api/pokemons/:id', auth, (req, res) => {
